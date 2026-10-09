@@ -377,7 +377,7 @@
   }
 
   /* POKÉMON (imagem) */
-  <img class="mew-sprite" id="mewSprite" src="pngegg (14).png" alt="Pokémon selvagem">
+  .mew-sprite{
     position:absolute;
     width:clamp(90px, 28vw, 150px);
     height:auto;
@@ -529,8 +529,8 @@
 <div id="loadingScreen">
   <div class="load-stage">
     <div class="mew-aura" id="mewAura"></div>
-    <!-- 👇 TROQUE O SRC PELA SUA IMAGEM DO POKÉMON -->
-    <img class="mew-sprite" id="mewSprite" src="mew.png" alt="Pokémon selvagem">
+    <!-- Pokémon carregado de pngegg (14).png -->
+    <img class="mew-sprite" id="mewSprite" src="pngegg (14).png" alt="Pokémon selvagem">
     <div class="pokeball" id="pokeball"></div>
     <div class="capture-stars" id="captureStars">✨💫⭐✨</div>
     <div class="capture-flash" id="captureFlash"></div>
@@ -876,7 +876,7 @@
               stars.classList.add("show");
               if(navigator.vibrate) navigator.vibrate([50,40,80]);
 
-              title.textContent = "✨ Pokémon capturado! ✨";
+              title.textContent = "Pokémon capturado!";
               title.style.color = "#ffd700";
               title.style.textShadow = "0 0 30px #ffd700, 0 0 60px #ff8fd0";
               sub.textContent = "Pokémon raro adicionado à sua Pokédex!";
@@ -914,7 +914,7 @@
     if(captured) return;
     captured = true;
     clearInterval(barTimer);
-    title.textContent = "🌸 Carregando…";
+    title.textContent = "Carregando…";
     sub.textContent = "";
     finish();
   });
@@ -924,7 +924,7 @@
     if(captured) return;
     captured = true;
     clearInterval(barTimer);
-    title.textContent = "🌸 Carregando…";
+    title.textContent = "Carregando…";
     sub.textContent = "";
     finish();
   }, {passive:false});
@@ -945,7 +945,6 @@
 (function pokemonImgFallback(){
   const img = document.getElementById("mewSprite");
   if(!img) return;
-  // se já falhou antes de registrar o handler
   if(img.complete && img.naturalWidth === 0){
     replaceWithEmoji(img);
     return;
