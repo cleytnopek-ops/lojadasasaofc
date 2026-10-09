@@ -2,7 +2,8 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="theme-color" content="#e5679a" />
 <title>Pixel da Sasa • Chaveiros Personalizados</title>
 <link rel="icon" href="pngegg (14).png">
 <style>
@@ -13,8 +14,9 @@
     --cyan:#7ac9c0;--yellow:#ffd97a;--purple:#c39bd3;--green:#7ec98f;
     --radius:16px;--shadow:0 10px 30px rgba(229,103,154,.15);
   }
-  *{box-sizing:border-box}
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html,body{margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
   body{
     font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
     background:
@@ -44,7 +46,8 @@
 
   /* HEADER */
   header{
-    position:sticky;top:0;z-index:50;backdrop-filter:blur(12px);
+    position:sticky;top:0;z-index:50;
+    -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
     background:rgba(255,255,255,.88);border-bottom:1px solid var(--line);
     box-shadow:0 4px 20px rgba(255,143,177,.08);
   }
@@ -72,7 +75,7 @@
     border-radius:12px;padding:11px 18px;font-size:.95rem;
     transition:transform .15s, box-shadow .2s, filter .2s;
     display:inline-flex;align-items:center;gap:8px;justify-content:center;
-    text-decoration:none;
+    text-decoration:none;touch-action:manipulation;
   }
   .btn:active{transform:translateY(1px) scale(.99)}
   .btn-primary{background:linear-gradient(135deg,var(--pink),var(--pink-dark));color:#fff;box-shadow:0 8px 22px rgba(255,143,177,.4)}
@@ -123,7 +126,7 @@
     background:rgba(255,255,255,.9);color:var(--pink-dark);
     font-size:.78rem;font-weight:800;padding:6px 14px;border-radius:999px;
     letter-spacing:.5px;box-shadow:0 6px 16px rgba(229,103,154,.3);z-index:3;
-    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
   }
 
   /* HERO */
@@ -253,6 +256,11 @@
   select,input[type=text],input[type=number],textarea{
     background:#fff8fb;color:var(--txt);border:1.5px solid var(--line);border-radius:11px;
     padding:10px 12px;font-family:inherit;font-size:.9rem;width:100%;outline:none;transition:.2s;
+    -webkit-appearance:none;appearance:none;
+  }
+  select{
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' stroke='%23a87890' stroke-width='2' fill='none' stroke-linecap='round'/></svg>");
+    background-repeat:no-repeat;background-position:right 12px center;padding-right:34px;
   }
   select:focus,input:focus,textarea:focus{border-color:var(--pink);box-shadow:0 0 0 3px rgba(255,143,177,.18);background:#fff}
 
@@ -283,8 +291,10 @@
 
   /* MODAL */
   .modal-bg{
-    position:fixed;inset:0;background:rgba(74,44,58,.55);backdrop-filter:blur(6px);
+    position:fixed;inset:0;background:rgba(74,44,58,.55);
+    -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
     display:none;align-items:center;justify-content:center;z-index:100;padding:16px;
+    overscroll-behavior:contain;
   }
   .modal-bg.open{display:flex;animation:fade .2s ease}
   @keyframes fade{from{opacity:0}to{opacity:1}}
@@ -294,12 +304,14 @@
     width:100%;max-width:520px;max-height:92vh;overflow:auto;
     box-shadow:0 30px 70px rgba(229,103,154,.35);
     animation:pop .25s cubic-bezier(.2,1.3,.5,1);
+    -webkit-overflow-scrolling:touch;
   }
   .modal h2{margin:0 0 6px;font-size:1.35rem;color:var(--pink-dark)}
   .modal .sub{color:var(--muted);font-size:.88rem;margin-bottom:18px}
   .close-x{
     float:right;background:#fff;border:1.5px solid var(--line);color:var(--muted);
-    width:34px;height:34px;border-radius:10px;cursor:pointer;font-size:1.1rem;line-height:1;
+    width:38px;height:38px;border-radius:10px;cursor:pointer;font-size:1.2rem;line-height:1;
+    touch-action:manipulation;
   }
   .close-x:hover{color:var(--pink-dark);background:var(--panel2)}
 
@@ -313,19 +325,221 @@
     .gallery{grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px}
     .price-card .val{font-size:1.6rem}
     .total-box .v{font-size:1.6rem}
-    .modal{padding:20px;border-radius:18px}
-    .btn{padding:10px 14px;font-size:.9rem}
-    .btn-wa{padding:14px 18px;font-size:.95rem}
+    .modal{padding:20px;border-radius:18px;max-height:88vh}
+    .btn{padding:12px 16px;font-size:.92rem}
+    .btn-wa{padding:16px 18px;font-size:.98rem}
     section{padding:34px 0}
     .sakura-banner{height:44vh;border-radius:0 0 18px 18px}
     .sakura-banner .dev-tag{font-size:.7rem;padding:5px 11px;bottom:10px;right:10px}
     .upload-area{padding:26px 14px}
     .upload-area .ico{font-size:2.6rem}
     .upload-area h3{font-size:1.1rem}
+    input,select,textarea{font-size:16px !important}
+  }
+
+  /* ============================================================
+     LOADING SCREEN POKÉMON
+     ============================================================ */
+  #loadingScreen{
+    position:fixed;inset:0;z-index:9999;
+    background:radial-gradient(circle at 50% 40%, #1a1030 0%, #0a0618 70%);
+    display:flex;align-items:center;justify-content:center;flex-direction:column;
+    transition:opacity .8s ease, visibility .8s;
+    overflow:hidden;cursor:pointer;user-select:none;
+    -webkit-user-select:none;-webkit-tap-highlight-color:transparent;
+    padding:20px;
+  }
+  #loadingScreen.hide{opacity:0;visibility:hidden;pointer-events:none}
+  #loadingScreen::before{
+    content:"";position:absolute;inset:0;
+    background:
+      radial-gradient(2px 2px at 20% 30%, #fff, transparent),
+      radial-gradient(2px 2px at 60% 70%, #fff, transparent),
+      radial-gradient(1px 1px at 80% 20%, #fff, transparent),
+      radial-gradient(1px 1px at 40% 80%, #fff, transparent),
+      radial-gradient(2px 2px at 90% 60%, #fff, transparent),
+      radial-gradient(1px 1px at 15% 55%, #fff, transparent),
+      radial-gradient(1px 1px at 70% 15%, #fff, transparent);
+    background-size:200% 200%;
+    animation:stars 20s linear infinite;
+    opacity:.6;
+  }
+  @keyframes stars{
+    0%{background-position:0 0}
+    100%{background-position:200% 200%}
+  }
+
+  .load-stage{
+    position:relative;
+    width:min(90vw, 420px);
+    height:min(55vh, 340px);
+    display:flex;align-items:center;justify-content:center;
+  }
+
+  /* POKÉMON (imagem) */
+  <img class="mew-sprite" id="mewSprite" src="pngegg (14).png" alt="Pokémon selvagem">
+    position:absolute;
+    width:clamp(90px, 28vw, 150px);
+    height:auto;
+    max-height:60%;
+    object-fit:contain;
+    filter:drop-shadow(0 0 20px #ff8fd0) drop-shadow(0 0 40px #ff8fd0);
+    animation:mewFloat 2.2s ease-in-out infinite;
+    transition:transform .5s, opacity .5s;
+    z-index:3;
+    pointer-events:none;
+    user-select:none;
+    -webkit-user-drag:none;
+    -webkit-user-select:none;
+    display:block;
+  }
+  @keyframes mewFloat{
+    0%,100%{transform:translateY(0) rotate(-4deg)}
+    50%{transform:translateY(-18px) rotate(4deg)}
+  }
+
+  .mew-aura{
+    position:absolute;
+    width:clamp(90px, 30vw, 140px);
+    height:clamp(90px, 30vw, 140px);
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(255,143,208,.5), transparent 70%);
+    animation:aura 2s ease-in-out infinite;z-index:2;
+  }
+  @keyframes aura{
+    0%,100%{transform:scale(1);opacity:.6}
+    50%{transform:scale(1.4);opacity:.9}
+  }
+
+  /* POKÉBOLA */
+  .pokeball{
+    position:absolute;bottom:20px;left:50%;transform:translateX(-50%);
+    width:clamp(50px, 16vw, 60px);
+    height:clamp(50px, 16vw, 60px);
+    border-radius:50%;z-index:5;
+    background:linear-gradient(180deg,#ff3b3b 0%,#ff3b3b 48%,#111 48%,#111 52%,#f5f5f5 52%,#f5f5f5 100%);
+    border:3px solid #111;
+    box-shadow:0 6px 18px rgba(0,0,0,.5), inset -6px -8px 12px rgba(0,0,0,.3), inset 6px 8px 12px rgba(255,255,255,.3);
+    cursor:pointer;transition:transform .2s;
+    touch-action:manipulation;
+  }
+  .pokeball::after{
+    content:"";position:absolute;top:50%;left:50%;
+    width:32%;height:32%;border-radius:50%;background:#fff;
+    border:3px solid #111;transform:translate(-50%,-50%);
+    box-shadow:inset 0 0 4px rgba(0,0,0,.3);
+  }
+  .pokeball:hover{transform:translateX(-50%) scale(1.1)}
+  .pokeball.throwing{
+    animation:throwBall 1s cubic-bezier(.3,.1,.5,1) forwards;
+  }
+  @keyframes throwBall{
+    0%{bottom:20px;transform:translateX(-50%) rotate(0deg) scale(1)}
+    50%{bottom:50%;transform:translateX(-50%) rotate(360deg) scale(.85)}
+    100%{bottom:48%;transform:translateX(-50%) rotate(720deg) scale(.7)}
+  }
+
+  /* captura: pokémon vira "energia" e vai pra bola */
+  .mew-sprite.capturing{
+    animation:mewCapture .9s ease-in forwards;
+  }
+  @keyframes mewCapture{
+    0%{transform:scale(1);opacity:1;filter:drop-shadow(0 0 20px #ff8fd0)}
+    60%{transform:scale(.4);opacity:.7;filter:drop-shadow(0 0 40px #fff) brightness(2)}
+    100%{transform:scale(0);opacity:0}
+  }
+
+  /* shakes da bola */
+  .pokeball.shake1{animation:shake1 .6s ease-in-out}
+  .pokeball.shake2{animation:shake2 .6s ease-in-out}
+  .pokeball.shake3{animation:shake3 .6s ease-in-out}
+  .pokeball.captured{animation:captured 1s ease-in-out forwards}
+  @keyframes shake1{0%,100%{transform:translateX(-50%) rotate(0)}25%{transform:translateX(-50%) rotate(-20deg)}75%{transform:translateX(-50%) rotate(20deg)}}
+  @keyframes shake2{0%,100%{transform:translateX(-50%) rotate(0)}25%{transform:translateX(-50%) rotate(20deg)}75%{transform:translateX(-50%) rotate(-20deg)}}
+  @keyframes shake3{0%,100%{transform:translateX(-50%) rotate(0)}25%{transform:translateX(-50%) rotate(-15deg)}75%{transform:translateX(-50%) rotate(15deg)}}
+  @keyframes captured{
+    0%{transform:translateX(-50%) scale(.7)}
+    50%{transform:translateX(-50%) scale(1.3);filter:brightness(2) drop-shadow(0 0 30px #ffd700)}
+    100%{transform:translateX(-50%) scale(1);filter:brightness(1) drop-shadow(0 0 20px #ffd700)}
+  }
+
+  .capture-stars{
+    position:absolute;top:30%;left:50%;transform:translate(-50%,-50%);
+    font-size:clamp(1.4rem, 6vw, 2rem);
+    opacity:0;pointer-events:none;z-index:6;
+    white-space:nowrap;
+  }
+  .capture-stars.show{animation:starsPop 1.2s ease-out forwards}
+  @keyframes starsPop{
+    0%{opacity:0;transform:translate(-50%,-50%) scale(.3)}
+    40%{opacity:1;transform:translate(-50%,-50%) scale(1.4)}
+    100%{opacity:1;transform:translate(-50%,-50%) scale(1.6)}
+  }
+
+  .capture-flash{
+    position:absolute;inset:0;background:#fff;opacity:0;
+    pointer-events:none;z-index:7;
+  }
+  .capture-flash.flash{animation:flash .6s ease-out}
+  @keyframes flash{0%{opacity:0}30%{opacity:.9}100%{opacity:0}}
+
+  .load-title{
+    color:#fff;font-size:clamp(1.1rem,4.5vw,2rem);font-weight:900;
+    text-align:center;margin-top:20px;letter-spacing:1px;
+    text-shadow:0 0 20px #ff8fd0, 0 0 40px #ff8fd0;
+    transition:opacity .4s;
+    padding:0 10px;
+  }
+  .load-sub{
+    color:#c9a8d8;font-size:clamp(.78rem,2.6vw,.9rem);
+    margin-top:8px;text-align:center;
+    animation:pulse 1.5s ease-in-out infinite;
+    padding:0 10px;
+  }
+  @keyframes pulse{0%,100%{opacity:.6}50%{opacity:1}}
+
+  .load-bar{
+    width:min(80vw,300px);height:8px;background:rgba(255,255,255,.1);
+    border-radius:99px;margin-top:22px;overflow:hidden;
+  }
+  .load-bar-fill{
+    height:100%;width:0%;
+    background:linear-gradient(90deg,#ff8fd0,#c39bd3,#7ac9c0);
+    border-radius:99px;transition:width .3s;
+    box-shadow:0 0 12px #ff8fd0;
+  }
+  .load-skip{
+    position:absolute;bottom:24px;right:24px;color:#c9a8d8;font-size:.78rem;
+    background:none;border:1px solid rgba(201,168,216,.4);
+    padding:8px 16px;border-radius:99px;cursor:pointer;font-family:inherit;
+    transition:.2s;touch-action:manipulation;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .load-skip:hover{background:rgba(201,168,216,.15);color:#fff}
+
+  @media(max-width:560px){
+    .load-skip{bottom:16px;right:16px;padding:8px 14px;font-size:.72rem}
+    .load-stage{height:min(50vh, 300px)}
   }
 </style>
 </head>
 <body>
+
+<!-- ===== LOADING SCREEN POKÉMON ===== -->
+<div id="loadingScreen">
+  <div class="load-stage">
+    <div class="mew-aura" id="mewAura"></div>
+    <!-- 👇 TROQUE O SRC PELA SUA IMAGEM DO POKÉMON -->
+    <img class="mew-sprite" id="mewSprite" src="mew.png" alt="Pokémon selvagem">
+    <div class="pokeball" id="pokeball"></div>
+    <div class="capture-stars" id="captureStars">✨💫⭐✨</div>
+    <div class="capture-flash" id="captureFlash"></div>
+  </div>
+  <div class="load-title" id="loadTitle">Um Pokémon selvagem apareceu!</div>
+  <div class="load-sub" id="loadSub">Toque na Pokébola para capturar! 🎯</div>
+  <div class="load-bar"><div class="load-bar-fill" id="loadBar"></div></div>
+  <button class="load-skip" id="loadSkip">Pular ⏭</button>
+</div>
 
 <div id="sakuraBg"></div>
 
@@ -435,27 +649,27 @@
           <div class="field">
             <label class="lbl">Produto / Tamanho</label>
             <select id="calcSize">
-              <option value="4">Pequeno — 10x10 — 3cm</option>
-              <option value="8" selected>Médio — 15x15 — 4,5cm</option>
-              <option value="12">Grande — 20x20 — 6cm</option>
-              <option value="20">Extra Grande — 25x25 — 7,5cm</option>
-              <option value="kitty">🌸 Pacote Hello Kitty (kit)</option>
+              <option value="4">Pequeno — 10x10 — 3cm — R$ 4,00</option>
+              <option value="8" selected>Médio — 15x15 — 4,5cm — R$ 8,00</option>
+              <option value="12">Grande — 20x20 — 6cm — R$ 12,00</option>
+              <option value="20">Extra Grande — 25x25 — 7,5cm — R$ 20,00</option>
+              <option value="kitty">🌸 Pacote Hello Kitty (kit) — R$ 32,00</option>
             </select>
           </div>
           <div class="field">
             <label class="lbl">Quantidade</label>
-            <input type="number" id="calcQty" value="1" min="1" max="999">
+            <input type="number" id="calcQty" value="1" min="1" max="999" inputmode="numeric">
           </div>
           <div class="notice">💡 O valor unitário e o total são atualizados automaticamente.</div>
         </div>
         <div>
           <div class="summary-line"><span>Produto</span><b id="sSize">Médio</b></div>
           <div class="summary-line"><span>Tamanho</span><b id="sDim">15x15</b></div>
-          <div class="summary-line"><span>Preço unitário</span><b id="sUnit">R$ 12,00</b></div>
+          <div class="summary-line"><span>Preço unitário</span><b id="sUnit">R$ 8,00</b></div>
           <div class="summary-line"><span>Quantidade</span><b id="sQty">1</b></div>
           <div class="total-box">
             <div class="t">Total</div>
-            <div class="v" id="sTotal">R$ 12,00</div>
+            <div class="v" id="sTotal">R$ 8,00</div>
           </div>
           <button class="btn btn-wa" style="width:100%;margin-top:14px" onclick="openOrder()">🛒 ENCOMENDAR PELO WHATSAPP</button>
         </div>
@@ -518,7 +732,7 @@
     </div>
     <div class="field">
       <label class="lbl">Quantidade</label>
-      <input type="number" id="oQty" value="1" min="1" max="999">
+      <input type="number" id="oQty" value="1" min="1" max="999" inputmode="numeric">
     </div>
     <div class="field">
       <label class="lbl">Produto / Tamanho</label>
@@ -537,9 +751,9 @@
 
     <div class="summary-line"><span>ID da compra</span><b id="oOrderIdLbl">—</b></div>
     <div class="summary-line"><span>Produto</span><b id="oSizeLbl">Médio</b></div>
-    <div class="summary-line"><span>Preço unitário</span><b id="oUnit">R$ 12,00</b></div>
+    <div class="summary-line"><span>Preço unitário</span><b id="oUnit">R$ 8,00</b></div>
     <div class="summary-line"><span>Quantidade</span><b id="oQtyLbl">1</b></div>
-    <div class="total-box"><div class="t">Total</div><div class="v" id="oTotal">R$ 12,00</div></div>
+    <div class="total-box"><div class="t">Total</div><div class="v" id="oTotal">R$ 8,00</div></div>
 
     <button class="btn btn-wa" style="width:100%;margin-top:16px" id="oSend">✅ Enviar pedido pelo WhatsApp</button>
 
@@ -565,7 +779,7 @@
         <h3 style="margin-top:0">Configurações gerais</h3>
         <div class="field">
           <label class="lbl">WhatsApp (só números, com país e DDD)</label>
-          <input type="text" id="adWa" placeholder="5511999999999">
+          <input type="text" id="adWa" placeholder="5511999999999" inputmode="numeric">
         </div>
         <div class="field">
           <label class="lbl">Nome da loja</label>
@@ -586,14 +800,186 @@
 
 <script>
 /* ============================================================
+   LOADING SCREEN POKÉMON
+   ============================================================ */
+(function pokemonLoading(){
+  const screen = document.getElementById("loadingScreen");
+  if(!screen) return;
+  const mew = document.getElementById("mewSprite");
+  const aura = document.getElementById("mewAura");
+  const ball = document.getElementById("pokeball");
+  const title = document.getElementById("loadTitle");
+  const sub = document.getElementById("loadSub");
+  const bar = document.getElementById("loadBar");
+  const stars = document.getElementById("captureStars");
+  const flash = document.getElementById("captureFlash");
+  const skip = document.getElementById("loadSkip");
+
+  let captured = false;
+  let progress = 0;
+  let barTimer = null;
+
+  // bloqueia scroll enquanto carrega
+  document.body.style.overflow = "hidden";
+
+  barTimer = setInterval(()=>{
+    if(captured) return;
+    progress = Math.min(progress + Math.random()*4, 70);
+    bar.style.width = progress + "%";
+  }, 300);
+
+  function finish(){
+    clearInterval(barTimer);
+    bar.style.width = "100%";
+    setTimeout(()=>{
+      screen.classList.add("hide");
+      document.body.style.overflow = "";
+      setTimeout(()=> { if(screen.parentNode) screen.remove(); }, 900);
+    }, 900);
+  }
+
+  function captureSequence(){
+    if(captured) return;
+    captured = true;
+    clearInterval(barTimer);
+
+    ball.classList.add("throwing");
+    sub.textContent = "Jogando Pokébola...";
+
+    setTimeout(()=>{
+      mew.classList.add("capturing");
+      aura.style.transition = "opacity .5s, transform .5s";
+      aura.style.opacity = "0";
+      aura.style.transform = "scale(0)";
+      title.textContent = "Pokémon foi sugado!";
+
+      setTimeout(()=>{
+        ball.classList.remove("throwing");
+        ball.style.bottom = "48%";
+        ball.classList.add("shake1");
+        title.textContent = "…";
+        sub.textContent = "Será que capturou?";
+
+        setTimeout(()=>{
+          ball.classList.remove("shake1");
+          ball.classList.add("shake2");
+          if(navigator.vibrate) navigator.vibrate(30);
+
+          setTimeout(()=>{
+            ball.classList.remove("shake2");
+            ball.classList.add("shake3");
+
+            setTimeout(()=>{
+              ball.classList.remove("shake3");
+              ball.classList.add("captured");
+              flash.classList.add("flash");
+              stars.classList.add("show");
+              if(navigator.vibrate) navigator.vibrate([50,40,80]);
+
+              title.textContent = "✨ Pokémon capturado! ✨";
+              title.style.color = "#ffd700";
+              title.style.textShadow = "0 0 30px #ffd700, 0 0 60px #ff8fd0";
+              sub.textContent = "Pokémon raro adicionado à sua Pokédex!";
+              sub.style.animation = "none";
+              sub.style.opacity = "1";
+              sub.style.color = "#ffd700";
+
+              progress = 100;
+              finish();
+            }, 650);
+          }, 650);
+        }, 650);
+      }, 800);
+    }, 1000);
+  }
+
+  ball.addEventListener("click", e=>{ e.stopPropagation(); captureSequence(); });
+  screen.addEventListener("click", e=>{
+    if(e.target === skip) return;
+    if(!captured) captureSequence();
+  });
+  screen.addEventListener("touchstart", e=>{
+    if(e.target === skip) return;
+    if(!captured){ e.preventDefault(); captureSequence(); }
+  }, {passive:false});
+  document.addEventListener("keydown", e=>{
+    if(!captured && (e.key === " " || e.key === "Enter")){
+      e.preventDefault();
+      captureSequence();
+    }
+  });
+
+  skip.addEventListener("click", e=>{
+    e.stopPropagation();
+    if(captured) return;
+    captured = true;
+    clearInterval(barTimer);
+    title.textContent = "🌸 Carregando…";
+    sub.textContent = "";
+    finish();
+  });
+  skip.addEventListener("touchstart", e=>{
+    e.stopPropagation();
+    e.preventDefault();
+    if(captured) return;
+    captured = true;
+    clearInterval(barTimer);
+    title.textContent = "🌸 Carregando…";
+    sub.textContent = "";
+    finish();
+  }, {passive:false});
+
+  // segurança: se o usuário não interagir, libera depois de 12s
+  setTimeout(()=>{
+    if(!captured){
+      captured = true;
+      clearInterval(barTimer);
+      finish();
+    }
+  }, 12000);
+})();
+
+/* ============================================================
+   FALLBACK: se a imagem do Pokémon não carregar, mostra emoji
+   ============================================================ */
+(function pokemonImgFallback(){
+  const img = document.getElementById("mewSprite");
+  if(!img) return;
+  // se já falhou antes de registrar o handler
+  if(img.complete && img.naturalWidth === 0){
+    replaceWithEmoji(img);
+    return;
+  }
+  img.addEventListener("error", ()=> replaceWithEmoji(img));
+
+  function replaceWithEmoji(el){
+    if(!el || !el.parentNode) return;
+    const span = document.createElement("div");
+    span.className = "mew-sprite";
+    span.id = "mewSprite";
+    span.textContent = "🐱";
+    span.style.fontSize = "clamp(3.5rem, 14vw, 5rem)";
+    span.style.lineHeight = "1";
+    span.style.display = "flex";
+    span.style.alignItems = "center";
+    span.style.justifyContent = "center";
+    span.style.width = "auto";
+    span.style.maxHeight = "none";
+    el.replaceWith(span);
+  }
+})();
+
+/* ============================================================
    CONFIG
    ============================================================ */
 const WHATSAPP_NUMBER = "5516992724156";
 const STORE_NAME = "Pixels da Sasa";
-const SAKURA_BG_URL = "standard (1).gif";   // <-- coloque o caminho do GIF aqui
-const LOGO_URL      = "pngegg (14).png";    // <-- coloque o caminho da logo aqui
+const SAKURA_BG_URL = "standard (1).gif";
+const LOGO_URL      = "pngegg (14).png";
 
-const DEFAULT_PRICES = { 10: 8.00, 15: 12.00, 20: 18.00, 25: 25.00, kitty: 32.00 };
+/* ===== PREÇOS ===== */
+const DEFAULT_PRICES = { 4: 4.00, 8: 8.00, 12: 12.00, 20: 20.00, kitty: 32.00 };
+
 const PRODUCT_LABELS = {
   4: "Pequeno 10x10",
   8: "Médio 15x15",
@@ -601,7 +987,14 @@ const PRODUCT_LABELS = {
   20: "Extra Grande 25x25",
   kitty: "Pacote Hello Kitty"
 };
-const PRODUCT_DIMS = { 10:"10x10 (3cm)", 15:"15x15 (4,5cm)", 20:"20x20 (6cm)", 25:"25x25 (7,5cm)", kitty:"Kit com vários" };
+
+const PRODUCT_DIMS = {
+  4: "10x10 (3cm)",
+  8: "15x15 (4,5cm)",
+  12: "20x20 (6cm)",
+  20: "25x25 (7,5cm)",
+  kitty: "Kit com vários"
+};
 
 let state = {
   prices: {...DEFAULT_PRICES},
@@ -616,6 +1009,7 @@ const $$ = (s, c=document) => [...c.querySelectorAll(s)];
 
 function toast(msg, ms=2400){
   const t = $("#toast");
+  if(!t) return;
   t.textContent = msg;
   t.classList.add("show");
   clearTimeout(t._tm);
@@ -674,7 +1068,6 @@ function showPreview(){
   const img = $("#previewImg");
   img.src = state.imageSrc;
   pa.classList.add("show");
-  // rola até a prévia
   setTimeout(()=> pa.scrollIntoView({behavior:"smooth", block:"center"}), 100);
 }
 
@@ -710,7 +1103,6 @@ function updatePriceCards(){
     c.appendChild(d);
   });
 
-  // PACOTE HELLO KITTY
   const kitty = document.createElement("div");
   kitty.className = "price-card kitty";
   kitty.innerHTML = `
@@ -806,6 +1198,7 @@ function sendOrder(){
   window.open(url, "_blank");
   toast("Pedido " + orderId + " enviado! Agora anexe a imagem. 🌸");
 }
+
 /* ============================================================
    SAKURA ANIMADA
    ============================================================ */
@@ -835,19 +1228,14 @@ function setupBanner(){
   if(!img) return;
   img.src = SAKURA_BG_URL;
   img.onload = ()=> img.classList.add("loaded");
-  img.onerror = ()=>{
-    // se não carregar, deixa o gradiente rosa aparecer
-    console.warn("GIF sakura não encontrado em: " + SAKURA_BG_URL);
-  };
+  img.onerror = ()=>{ console.warn("GIF sakura não encontrado em: " + SAKURA_BG_URL); };
 }
 
 function setupLogo(){
   const img = document.querySelector(".logo-img");
   if(!img) return;
   img.src = LOGO_URL;
-  img.onerror = ()=>{
-    console.warn("Logo não encontrada em: " + LOGO_URL);
-  };
+  img.onerror = ()=>{ console.warn("Logo não encontrada em: " + LOGO_URL); };
 }
 
 /* ============================================================
