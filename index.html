@@ -335,7 +335,7 @@
       <span id="logoContainer">
         <img src="mew-logo.png" alt="Logo" class="logo-img" onerror="this.outerHTML='<div class=\'logo-fallback\'>🌸</div>'">
       </span>
-      <span>Sakura<span style="color:var(--pink)">Pixel</span></span>
+      <span>Conheça meu<span style="color:var(--pink)"> trabalho!</span></span>
     </div>
     <nav>
       <ul>
@@ -523,10 +523,10 @@
     <div class="field">
       <label class="lbl">Produto / Tamanho</label>
       <select id="oSize">
-        <option value="4">Pequeno — 10x10 — R$ 8,00</option>
-        <option value="8" selected>Médio — 15x15 — R$ 12,00</option>
-        <option value="12">Grande — 20x20 — R$ 18,00</option>
-        <option value="20">Extra Grande — 25x25 — R$ 25,00</option>
+        <option value="4">Pequeno — 10x10 — R$ 4,00</option>
+        <option value="8" selected>Médio — 15x15 — R$ 8,00</option>
+        <option value="12">Grande — 20x20 — R$ 12,00</option>
+        <option value="20">Extra Grande — 25x25 — R$ 20,00</option>
         <option value="kitty">🌸 Pacote Hello Kitty — R$ 32,00</option>
       </select>
     </div>
@@ -904,11 +904,6 @@ function init(){
     const url = `https://wa.me/${state.waNumber}?text=${encodeURIComponent("Olá, "+name+"! "+msg)}`;
     window.open(url, "_blank");
   });
-
-  /* ADMIN */
-  $("#adminToggle").addEventListener("click", openAdmin);
-  $("#adSave").addEventListener("click", saveAdmin);
-  $("#adReset").addEventListener("click", resetAdmin);
 }
 
 document.addEventListener("DOMContentLoaded", init);
