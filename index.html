@@ -372,7 +372,7 @@
     <div class="badges">
       <span class="badge">🌸 Feito à mão</span>
       <span class="badge">📦 Envio</span>
-      <span class="badge"><b>+500</b> chaveiros criados</span>
+      <span class="badge"><b>+10</b> chaveiros criados</span>
     </div>
   </section>
 
@@ -435,10 +435,10 @@
           <div class="field">
             <label class="lbl">Produto / Tamanho</label>
             <select id="calcSize">
-              <option value="10">Pequeno — 10x10 — 3cm</option>
-              <option value="15" selected>Médio — 15x15 — 4,5cm</option>
-              <option value="20">Grande — 20x20 — 6cm</option>
-              <option value="25">Extra Grande — 25x25 — 7,5cm</option>
+              <option value="4">Pequeno — 10x10 — 3cm</option>
+              <option value="8" selected>Médio — 15x15 — 4,5cm</option>
+              <option value="12">Grande — 20x20 — 6cm</option>
+              <option value="20">Extra Grande — 25x25 — 7,5cm</option>
               <option value="kitty">🌸 Pacote Hello Kitty (kit)</option>
             </select>
           </div>
@@ -495,7 +495,7 @@
 
 <footer>
   <div class="wrap">
-    <p>© <span id="year"></span> <b>SakuraPixel</b> — Chaveiros personalizados. 🌸</p>
+    <p>© <span id="year"></span> <b>Conheça meu trabalho!</b> — Chaveiros personalizados. 🌸</p>
     <p style="margin-top:4px;font-size:.78rem">Desenvolvido por <b>Davi Dev</b></p>
     <p style="margin-top:10px"><button class="btn btn-ghost btn-sm" id="adminToggle">⚙️ Área administrativa</button></p>
   </div>
@@ -523,10 +523,10 @@
     <div class="field">
       <label class="lbl">Produto / Tamanho</label>
       <select id="oSize">
-        <option value="10">Pequeno — 10x10 — R$ 8,00</option>
-        <option value="15" selected>Médio — 15x15 — R$ 12,00</option>
-        <option value="20">Grande — 20x20 — R$ 18,00</option>
-        <option value="25">Extra Grande — 25x25 — R$ 25,00</option>
+        <option value="4">Pequeno — 10x10 — R$ 8,00</option>
+        <option value="8" selected>Médio — 15x15 — R$ 12,00</option>
+        <option value="12">Grande — 20x20 — R$ 18,00</option>
+        <option value="20">Extra Grande — 25x25 — R$ 25,00</option>
         <option value="kitty">🌸 Pacote Hello Kitty — R$ 32,00</option>
       </select>
     </div>
@@ -595,10 +595,10 @@ const LOGO_URL      = "pngegg (14).png";    // <-- coloque o caminho da logo aqu
 
 const DEFAULT_PRICES = { 10: 8.00, 15: 12.00, 20: 18.00, 25: 25.00, kitty: 32.00 };
 const PRODUCT_LABELS = {
-  10: "Pequeno 10x10",
-  15: "Médio 15x15",
-  20: "Grande 20x20",
-  25: "Extra Grande 25x25",
+  4: "Pequeno 10x10",
+  8: "Médio 15x15",
+  12: "Grande 20x20",
+  20: "Extra Grande 25x25",
   kitty: "Pacote Hello Kitty"
 };
 const PRODUCT_DIMS = { 10:"10x10 (3cm)", 15:"15x15 (4,5cm)", 20:"20x20 (6cm)", 25:"25x25 (7,5cm)", kitty:"Kit com vários" };
@@ -694,7 +694,7 @@ function downloadImage(){
 function updatePriceCards(){
   const c = $("#priceCards");
   c.innerHTML = "";
-  [10,15,20,25].forEach(n=>{
+  [4,8,12,20].forEach(n=>{
     const d = document.createElement("div");
     d.className = "price-card" + (n===20 ? " pop" : "");
     d.innerHTML = `
@@ -806,55 +806,6 @@ function sendOrder(){
   window.open(url, "_blank");
   toast("Pedido " + orderId + " enviado! Agora anexe a imagem. 🌸");
 }
-
-/* ============================================================
-   ADMIN
-   ============================================================ */
-function renderAdminPrices(){
-  const t = $("#adPriceBody");
-  t.innerHTML = "";
-  [10,15,20,25,"kitty"].forEach(k=>{
-    const row = document.createElement("div");
-    row.className = "field";
-    row.innerHTML = `
-      <label class="lbl">${PRODUCT_LABELS[k]}</label>
-      <input type="number" step="0.01" min="0" data-size="${k}" value="${Number(state.prices[k] || 0).toFixed(2)}">
-    `;
-    t.appendChild(row);
-  });
-}
-function openAdmin(){
-  $("#adWa").value = state.waNumber;
-  $("#adStore").value = state.storeName;
-  renderAdminPrices();
-  openModal("adminModal");
-}
-function saveAdmin(){
-  const wa = $("#adWa").value.replace(/\D/g,"");
-  const store = $("#adStore").value.trim() || "SakuraPixel";
-  if(wa.length < 10){ toast("Número de WhatsApp inválido."); return; }
-  state.waNumber = wa;
-  state.storeName = store;
-  $$("#adPriceBody input").forEach(inp=>{
-    const k = inp.dataset.size;
-    const v = parseFloat(inp.value);
-    if(!isNaN(v) && v >= 0) state.prices[k] = v;
-  });
-  saveConfig();
-  updatePriceCards(); updateCalc();
-  $("#infoWa").textContent = "+" + wa;
-  toast("Configurações salvas! 🌸");
-  closeModal("adminModal");
-}
-function resetAdmin(){
-  state.prices = {...DEFAULT_PRICES};
-  state.storeName = STORE_NAME;
-  state.waNumber = WHATSAPP_NUMBER;
-  saveConfig();
-  renderAdminPrices(); updatePriceCards(); updateCalc();
-  toast("Padrões restaurados.");
-}
-
 /* ============================================================
    SAKURA ANIMADA
    ============================================================ */
